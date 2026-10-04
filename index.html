@@ -306,6 +306,19 @@
     </div>
   </section>
 
+  <section id="leaderboards">
+    <h2>Leaderboards</h2>
+    <p class="lede">Every game you play counts towards your record. <code>!stats</code> shows yours, <code>!stats &lt;name&gt;</code> shows anyone's.</p>
+    <div class="game">
+      <div><h3>Richest</h3><span class="how">!auratop [earned]</span></div>
+      <div><p>Who's holding the most Epic Aura right now. Add <code>earned</code> to see who's earned the most from watching, all time.</p></div>
+    </div>
+    <div class="game">
+      <div><h3>Game boards</h3><span class="how">!gametop &lt;category&gt;</span></div>
+      <div><p>Fight wins, best win streak, Kraber headshots, Apex Champion wins, duels won, heist escapes, gamble wins and the biggest single win. Categories: <code>fights</code> <code>streak</code> <code>kraber</code> <code>ring</code> <code>duels</code> <code>heist</code> <code>gamble</code> <code>bigwin</code></p></div>
+    </div>
+  </section>
+
   <section id="events">
     <h2>Giveaways and events</h2>
     <p class="lede">Terry runs these during stream. Type the command on its own to see what's running.</p>
@@ -331,7 +344,7 @@
     <p class="lede">Search for what you want to do.</p>
     <div class="finder">
       <label for="q" class="sr" style="position:absolute;left:-9999px">Search commands</label>
-      <input id="q" type="search" placeholder="Try fight, giveaway or link" autocomplete="off">
+      <input id="q" type="search" placeholder="Try fight, giveaway or leaderboard" autocomplete="off">
     </div>
     <ul class="cmds" id="cmds"></ul>
     <p class="empty" id="empty" hidden>No command matches that. Try a shorter word.</p>
@@ -346,6 +359,10 @@
     <details>
       <summary>Why isn't my balance going up?</summary>
       <p>Aura is only paid while the stream is live, and the first few minutes after you arrive don't count. On YouTube and Kick, send a message now and then so you're counted.</p>
+    </details>
+    <details>
+      <summary>Does Epic Aura ever reset?</summary>
+      <p>Every now and then it may be reset so it stays fair for new viewers. You'll always get a heads up in chat before it happens.</p>
     </details>
     <details>
       <summary>Can I buy or sell Epic Aura?</summary>
@@ -368,7 +385,15 @@
     ["!aura", "Check your balance", "basics"],
     ["!aura <name>", "Check someone else's balance", "basics"],
     ["!points", "Same as !aura", "basics"],
-    ["!auratop", "Top 5 richest", "basics"],
+    ["!auratop", "Top 5 richest right now", "leaderboards"],
+    ["!auratop earned", "Most earned from watching, all time", "leaderboards"],
+    ["!stats", "Your game record", "leaderboards"],
+    ["!stats <name>", "Someone else's game record", "leaderboards"],
+    ["!gametop fights", "Most fight wins", "leaderboards"],
+    ["!gametop streak", "Best fight win streak", "leaderboards"],
+    ["!gametop ring", "Most Apex Champion wins", "leaderboards"],
+    ["!gametop bigwin", "Biggest single win", "leaderboards"],
+    ["!gametop <kraber|duels|heist|gamble>", "More game leaderboards", "leaderboards"],
     ["!aurahelp", "Quick command list in chat", "basics"],
     ["!give <name> <amount>", "Send Epic Aura to someone", "basics"],
     ["!link <platform> <name>", "Start linking another platform's account", "accounts"],
