@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Epic Aura - Viewer Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --ink: #0A0A0A;
+    --muted: #55535C;
+    --line: #E4E2EA;
+    --aura: #7C3AED;
+    --aura-soft: #F1EAFE;
+    --gold: #1A86C7;
+    --big: #7C3AED;
+    --win: #1A86C7;
+    --loss: #B03A3A;
+    --chat: #FAFAFB;
+    --name1: #7C3AED;
+    --name2: #1A86C7;
+    --font-head: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --font-body: "Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --panel: #0F0F12;
+      --ink: #FFFFFF;
+      --muted: #A3A1AB;
+      --line: #26242C;
+      --aura: #A06BFF;
+      --aura-soft: #1C1430;
+      --gold: #6CC8FF;
+      --big: #A06BFF;
+      --win: #6CC8FF;
+      --loss: #D35A5A;
+      --chat: #0B0B0D;
+      --name1: #A06BFF;
+      --name2: #6CC8FF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000;
+    --panel: #0F0F12;
+    --ink: #FFFFFF;
+    --muted: #A3A1AB;
+    --line: #26242C;
+    --aura: #A06BFF;
+    --aura-soft: #1C1430;
+    --gold: #6CC8FF;
+    --big: #A06BFF;
+    --win: #6CC8FF;
+    --loss: #D35A5A;
+    --chat: #0B0B0D;
+    --name1: #A06BFF;
+    --name2: #6CC8FF;
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--aura); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--aura); outline-offset: 2px; }
+  code, .cmd { font-family: var(--font-mono); font-size: 0.86em; }
+  code { background: var(--aura-soft); padding: 0.1em 0.4em; border-radius: 3px; white-space: nowrap; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+
+  /* Hero: the chat is the hero, because chat is where all of this happens */
+  .hero { padding: 56px 0 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 44px; align-items: center; }
+  .hero h1 {
+    font: 800 clamp(64px, 11vw, 112px)/0.86 var(--font-head);
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .hero p { font-size: 19px; color: var(--muted); margin: 0 0 22px; max-width: 30ch; }
+  .platforms { display: flex; flex-wrap: wrap; gap: 8px; }
+  .platforms a {
+    font: 600 15px/1 var(--font-body);
+    text-decoration: none;
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+    padding: 9px 14px;
+    border-radius: 999px;
+  }
+  .platforms a:hover { border-color: var(--aura); }
+
+  .chat {
+    background: var(--chat);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    box-shadow: 0 0 0 1px var(--aura-soft), 0 20px 48px -28px var(--aura);
+  }
+  .chat p { margin: 0 0 9px; opacity: 0; animation: pop 0.35s ease-out forwards; }
+  .chat p:last-child { margin-bottom: 0; }
+  .chat p:nth-child(1) { animation-delay: 0.2s; }
+  .chat p:nth-child(2) { animation-delay: 0.9s; }
+  .chat p:nth-child(3) { animation-delay: 1.8s; }
+  .chat p:nth-child(4) { animation-delay: 2.5s; }
+  .chat p:nth-child(5) { animation-delay: 3.4s; }
+  @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .who { font-weight: 600; margin-right: 6px; }
+  .who.v1 { color: var(--name1); }
+  .who.v2 { color: var(--name2); }
+  .who.bot { color: var(--ink); }
+  .chat .cmd { color: var(--ink); }
+  .up { color: var(--win); font-weight: 600; }
+  .down { color: var(--loss); font-weight: 600; }
+
+  /* Sections */
+  section { padding: 46px 0 10px; border-top: 1.5px solid var(--line); }
+  h2 { font: 700 44px/1 var(--font-head); margin: 0 0 8px; }
+  .lede { color: var(--muted); margin: 0 0 26px; max-width: 62ch; }
+  h3 { font: 700 26px/1.1 var(--font-head); margin: 0 0 6px; }
+
+  .earn { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 30px; }
+  .earn .big { font: 800 56px/1 var(--font-head); color: var(--big); display: block; margin-bottom: 4px; }
+  .earn p { margin: 0; color: var(--muted); }
+  .earn strong { color: var(--ink); }
+
+  .note {
+    border-left: 4px solid var(--aura);
+    background: var(--aura-soft);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 0 0 30px;
+    max-width: 70ch;
+  }
+  .note p { margin: 0; }
+
+  /* Games: two-column rows, the game on the left, the rules on the right */
+  .game { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .game:last-of-type { border-bottom: 0; }
+  .game .how { font-family: var(--font-mono); font-size: 14px; color: var(--gold); margin-top: 6px; display: block; }
+  .game p { margin: 0 0 10px; max-width: 62ch; }
+  .game p:last-child { margin-bottom: 0; }
+  .game ul { margin: 0 0 10px; padding-left: 20px; max-width: 62ch; }
+
+  .odds-wrap { overflow-x: auto; margin: 4px 0 12px; }
+  table.odds { border-collapse: collapse; min-width: 320px; }
+  .odds th, .odds td { text-align: left; padding: 8px 22px 8px 0; border-bottom: 1px solid var(--line); }
+  .odds th { font: 600 14px/1 var(--font-body); color: var(--muted); }
+  .odds td:first-child { font: 700 22px/1 var(--font-head); }
+  .odds td:last-child { color: var(--aura); font-weight: 600; }
+
+  ol.steps { padding-left: 22px; margin: 0 0 18px; max-width: 62ch; }
+  ol.steps li { margin-bottom: 10px; }
+
+  /* Command finder */
+  .finder { position: relative; margin: 0 0 18px; max-width: 520px; }
+  .finder input {
+    width: 100%;
+    font: 500 17px/1 var(--font-body);
+    color: var(--ink);
+    background: var(--panel);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .finder input::placeholder { color: var(--muted); }
+  .cmds { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .cmds li { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .cmds .cmd { color: var(--gold); word-break: break-word; }
+  .cmds .what { color: var(--ink); }
+  .cmds .cat { color: var(--muted); font-size: 14px; margin-left: 6px; }
+  .empty { color: var(--muted); padding: 14px 0; }
+
+  details { border-bottom: 1px solid var(--line); padding: 14px 0; max-width: 70ch; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 10px 0 0; color: var(--muted); }
+
+  footer { padding: 40px 0 50px; color: var(--muted); font-size: 15px; border-top: 1.5px solid var(--line); margin-top: 40px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 34px; gap: 28px; }
+    .earn { grid-template-columns: 1fr; gap: 18px; }
+    .game { grid-template-columns: 1fr; gap: 8px; }
+    .cmds li { grid-template-columns: 1fr; gap: 2px; }
+    h2 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <div>
+      <h1>Epic Aura</h1>
+      <p>The currency you earn just by hanging out in iTzTerryEpic's chat. Stack it, flex it, or lose it all on a 1v3.</p>
+      <div class="platforms">
+        <a href="https://www.twitch.tv/itzterryepic" target="_blank" rel="noopener">Twitch</a>
+        <a href="https://www.youtube.com/@itzterryepic" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://kick.com/itzterryepic" target="_blank" rel="noopener">Kick</a>
+      </div>
+    </div>
+    <div class="chat" aria-label="Example chat">
+      <p><span class="who v1">Sam:</span><span class="cmd">!fight pathy 1v2 300</span></p>
+      <p><span class="who bot">BakaOwnage:</span>@Sam Pathy ziplined in and won the 1v2. Happy robot noises. <span class="up">(+600, now 2,140)</span></p>
+      <p><span class="who v2">Jess:</span><span class="cmd">!fight wraith 1v1 200</span></p>
+      <p><span class="who bot">BakaOwnage:</span>@Jess your Wraith lost the 1v1. Skill issue, do better. <span class="down">(-200, now 950)</span></p>
+      <p><span class="who v2">Jess:</span>it was lag</p>
+    </div>
+  </header>
+
+  <section id="earn">
+    <h2>How you earn it</h2>
+    <p class="lede">You get Epic Aura automatically while you watch. Check your balance any time with <code>!aura</code>.</p>
+
+    <div class="earn">
+      <div><span class="big">300</span><p><strong>per hour of watching</strong>, paid every few minutes while the stream is live.</p></div>
+      <div><span class="big">1.5x</span><p><strong>for subs and members</strong> on Twitch, YouTube and Kick.</p></div>
+      <div><span class="big">Free</span><p><strong>Aura from drops and rain</strong>. Keep an eye on chat, first to <code>!claim</code> wins a drop.</p></div>
+    </div>
+
+    <div class="note">
+      <p>On YouTube and Kick you need to chat now and then to be counted. On Twitch you earn even while lurking.</p>
+    </div>
+  </section>
+
+  <section id="link">
+    <h2>Watching on more than one platform?</h2>
+    <p class="lede">Link your accounts so all your Epic Aura stacks in one wallet.</p>
+    <ol class="steps">
+      <li>On the platform you're on now, type <code>!link youtube YourYouTubeName</code> (swap in <code>twitch</code> or <code>kick</code> and your name there).</li>
+      <li>Within 10 minutes, go to that other platform and type <code>!link confirm</code>.</li>
+      <li>Done. Your balances are combined and you earn into the same wallet from both.</li>
+    </ol>
+    <p class="lede">Only the account you named can confirm, so nobody can link into your wallet. Changed your mind? <code>!unlink</code> splits that account back out.</p>
+  </section>
+
+  <section id="games">
+    <h2>Ways to spend it</h2>
+    <p class="lede">Amounts can be a number, <code>all</code>, <code>half</code> or shorthand like <code>2k</code>.</p>
+
+    <div class="game">
+      <div><h3>Apex fight</h3><span class="how">!fight &lt;legend&gt; &lt;1v1|1v2|1v3&gt; &lt;amount&gt;</span></div>
+      <div>
+        <p>Pick a legend, pick your fight. Leave the legend out for a random one, leave the size out for a 1v1. Nicknames work too: pathy, gibby, valk, bh, maggie, newy, cata.</p>
+        <div class="odds-wrap">
+          <table class="odds">
+            <thead><tr><th>Fight</th><th>Win chance</th><th>Pays</th></tr></thead>
+            <tbody>
+              <tr><td>1v1</td><td>45%</td><td>2x</td></tr>
+              <tr><td>1v2</td><td>29%</td><td>3x</td></tr>
+              <tr><td>1v3</td><td>17%</td><td>5x</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>Kraber headshot: some wins pay double.</li>
+          <li>Banner pulled: some losses give half your Aura back.</li>
+          <li>Win 3 in a row and chat hears about it. Win 5 in a row and you're Kill Leader on every platform.</li>
+        </ul>
+        <p>Min 10, max 5,000, 20 second cooldown.</p>
+      </div>
+    </div>
+
+    <div class="game">
+      <div><h3>Battle royale</h3><span class="how">!ring &lt;buy-in&gt; [legend]</span></div>
+      <div>
+        <p>Start a lobby with a buy-in, then everyone else types <code>!ring</code> to drop in at the same price. You get 90 seconds to join and need at least 3 players.</p>
+        <p>Every 12 seconds the ring closes and knocks people out until it's a final 1v1. The champion takes 80% of the pot and second place gets 20%, after a small house cut.</p>
+        <p>Buy-in 50 to 10,000. One game every 5 minutes.</p>
+      </div>
+    </div>
+
+    <div class="game">
+      <div><h3>Duel</h3><span class="how">!duel &lt;name&gt; &lt;amount&gt;</span></div>
+      <div>
+        <p>Challenge someone. They have 60 seconds to type <code>!accept</code> or <code>!deny</code>. It's 50/50 and the winner takes the bet. Works across platforms if your accounts are linked.</p>
+      </div>
+    </div>
+
+    <div class="game">
+      <div><h3>Heist</h3><span class="how">!heist &lt;amount&gt;</span></div>
+      <div>
+        <p>The first person starts it, everyone else has 60 seconds to join with their own stake. The bigger the crew, the better the odds. Everyone who makes it out gets 1.8x their stake back.</p>
+        <p>Min 50. One heist every 5 minutes.</p>
+      </div>
+    </div>
+
+    <div class="game">
+      <div><h3>Gamble</h3><span class="how">!gamble &lt;amount&gt;</span></div>
+      <div>
+        <p>Roll 1 to 100. 56 or higher doubles your bet. Min 10, max 10,000, 30 second cooldown.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <h2>Giveaways and events</h2>
+    <p class="lede">Terry runs these during stream. Type the command on its own to see what's running.</p>
+
+    <div class="game">
+      <div><h3>Giveaways</h3><span class="how">!enter [tickets|max]</span></div>
+      <div><p>Buy tickets with Epic Aura, or enter for free when it's a free giveaway. More tickets, better chance. <code>!giveaway</code> shows the prize and price.</p></div>
+    </div>
+
+    <div class="game">
+      <div><h3>Predictions</h3><span class="how">!bet &lt;option&gt; &lt;amount&gt;</span></div>
+      <div><p>Bet on things like whether Terry wins the next match. Winners split the whole pot based on how much they bet. <code>!predict</code> shows the options.</p></div>
+    </div>
+
+    <div class="game">
+      <div><h3>Community goals</h3><span class="how">!contribute &lt;amount&gt;</span></div>
+      <div><p>Everyone chips in from every platform to unlock something big, like a cosplay stream. <code>!goal</code> shows the progress.</p></div>
+    </div>
+  </section>
+
+  <section id="commands">
+    <h2>Every command</h2>
+    <p class="lede">Search for what you want to do.</p>
+    <div class="finder">
+      <label for="q" class="sr" style="position:absolute;left:-9999px">Search commands</label>
+      <input id="q" type="search" placeholder="Try fight, giveaway or link" autocomplete="off">
+    </div>
+    <ul class="cmds" id="cmds"></ul>
+    <p class="empty" id="empty" hidden>No command matches that. Try a shorter word.</p>
+  </section>
+
+  <section id="faq">
+    <h2>Questions</h2>
+    <details>
+      <summary>Is Epic Aura the same as Twitch channel points?</summary>
+      <p>No. Channel points are Twitch only and are used for the redeems in the Twitch menu. Epic Aura works on Twitch, YouTube and Kick and is used with chat commands.</p>
+    </details>
+    <details>
+      <summary>Why isn't my balance going up?</summary>
+      <p>Aura is only paid while the stream is live, and the first few minutes after you arrive don't count. On YouTube and Kick, send a message now and then so you're counted.</p>
+    </details>
+    <details>
+      <summary>Can I buy or sell Epic Aura?</summary>
+      <p>No. It has no cash value and can't be bought, sold or swapped for anything outside the stream.</p>
+    </details>
+    <details>
+      <summary>I linked the wrong account</summary>
+      <p>Type <code>!unlink</code> on the account you want to remove. Your balance stays with your other accounts and the unlinked one starts from zero.</p>
+    </details>
+  </section>
+
+  <footer>
+    Epic Aura is part of the Epicness community. See you in chat.
+  </footer>
+</main>
+
+<script>
+  // Every viewer command, searchable
+  const COMMANDS = [
+    ["!aura", "Check your balance", "basics"],
+    ["!aura <name>", "Check someone else's balance", "basics"],
+    ["!points", "Same as !aura", "basics"],
+    ["!auratop", "Top 5 richest", "basics"],
+    ["!aurahelp", "Quick command list in chat", "basics"],
+    ["!give <name> <amount>", "Send Epic Aura to someone", "basics"],
+    ["!link <platform> <name>", "Start linking another platform's account", "accounts"],
+    ["!link confirm", "Finish linking, typed on the other platform", "accounts"],
+    ["!unlink", "Split this account back out of a linked wallet", "accounts"],
+    ["!fight <legend> <1v1|1v2|1v3> <amount>", "Apex fight, pays 2x, 3x or 5x", "games"],
+    ["!ring <buy-in> [legend]", "Start a battle royale lobby", "games"],
+    ["!ring [legend]", "Join the open battle royale", "games"],
+    ["!duel <name> <amount>", "Challenge someone, 50/50", "games"],
+    ["!accept", "Accept a duel", "games"],
+    ["!deny", "Turn down a duel", "games"],
+    ["!heist <amount>", "Start or join a group heist", "games"],
+    ["!gamble <amount>", "Roll 56 or higher to double", "games"],
+    ["!claim", "Grab a drop, first one wins", "events"],
+    ["!giveaway", "See the current giveaway", "events"],
+    ["!enter [tickets|max]", "Enter the giveaway", "events"],
+    ["!predict", "See the current prediction", "events"],
+    ["!bet <option> <amount>", "Bet on a prediction", "events"],
+    ["!goal", "See the community goal", "events"],
+    ["!contribute <amount>", "Add to the community goal", "events"]
+  ];
+
+  const list = document.getElementById("cmds");
+  const empty = document.getElementById("empty");
+  const q = document.getElementById("q");
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  }
+
+  function render(filter) {
+    const f = filter.trim().toLowerCase();
+    const rows = COMMANDS.filter(([cmd, what, cat]) =>
+      !f || cmd.toLowerCase().includes(f) || what.toLowerCase().includes(f) || cat.includes(f));
+    list.innerHTML = rows.map(([cmd, what, cat]) =>
+      `<li><span class="cmd">${escapeHtml(cmd)}</span><span class="what">${escapeHtml(what)}<span class="cat">${cat}</span></span></li>`
+    ).join("");
+    empty.hidden = rows.length > 0;
+  }
+
+  q.addEventListener("input", () => render(q.value));
+  render("");
+</script>
+</body>
+</html>
