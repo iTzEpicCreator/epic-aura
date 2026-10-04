@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Epic Aura - Mod Guide</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --ink: #0A0A0A;
+    --muted: #55535C;
+    --line: #E4E2EA;
+    --aura: #7C3AED;
+    --aura-soft: #F1EAFE;
+    --gold: #1A86C7;
+    --big: #7C3AED;
+    --win: #1A86C7;
+    --loss: #B03A3A;
+    --chat: #FAFAFB;
+    --name1: #7C3AED;
+    --name2: #1A86C7;
+    --font-head: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --font-body: "Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --panel: #0F0F12;
+      --ink: #FFFFFF;
+      --muted: #A3A1AB;
+      --line: #26242C;
+      --aura: #A06BFF;
+      --aura-soft: #1C1430;
+      --gold: #6CC8FF;
+      --big: #A06BFF;
+      --win: #6CC8FF;
+      --loss: #D35A5A;
+      --chat: #0B0B0D;
+      --name1: #A06BFF;
+      --name2: #6CC8FF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000;
+    --panel: #0F0F12;
+    --ink: #FFFFFF;
+    --muted: #A3A1AB;
+    --line: #26242C;
+    --aura: #A06BFF;
+    --aura-soft: #1C1430;
+    --gold: #6CC8FF;
+    --big: #A06BFF;
+    --win: #6CC8FF;
+    --loss: #D35A5A;
+    --chat: #0B0B0D;
+    --name1: #A06BFF;
+    --name2: #6CC8FF;
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--aura); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--aura); outline-offset: 2px; }
+  code, .cmd { font-family: var(--font-mono); font-size: 0.86em; }
+  code { background: var(--aura-soft); padding: 0.1em 0.4em; border-radius: 3px; white-space: nowrap; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+
+  /* Hero: the chat is the hero, because chat is where all of this happens */
+  .hero { padding: 56px 0 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 44px; align-items: center; }
+  .hero h1 {
+    font: 800 clamp(64px, 11vw, 112px)/0.86 var(--font-head);
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .hero p { font-size: 19px; color: var(--muted); margin: 0 0 22px; max-width: 30ch; }
+  .platforms { display: flex; flex-wrap: wrap; gap: 8px; }
+  .platforms a {
+    font: 600 15px/1 var(--font-body);
+    text-decoration: none;
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+    padding: 9px 14px;
+    border-radius: 999px;
+  }
+  .platforms a:hover { border-color: var(--aura); }
+
+  .chat {
+    background: var(--chat);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    box-shadow: 0 0 0 1px var(--aura-soft), 0 20px 48px -28px var(--aura);
+  }
+  .chat p { margin: 0 0 9px; opacity: 0; animation: pop 0.35s ease-out forwards; }
+  .chat p:last-child { margin-bottom: 0; }
+  .chat p:nth-child(1) { animation-delay: 0.2s; }
+  .chat p:nth-child(2) { animation-delay: 0.9s; }
+  .chat p:nth-child(3) { animation-delay: 1.8s; }
+  .chat p:nth-child(4) { animation-delay: 2.5s; }
+  .chat p:nth-child(5) { animation-delay: 3.4s; }
+  @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .who { font-weight: 600; margin-right: 6px; }
+  .who.v1 { color: var(--name1); }
+  .who.v2 { color: var(--name2); }
+  .who.bot { color: var(--ink); }
+  .chat .cmd { color: var(--ink); }
+  .up { color: var(--win); font-weight: 600; }
+  .down { color: var(--loss); font-weight: 600; }
+
+  /* Sections */
+  section { padding: 46px 0 10px; border-top: 1.5px solid var(--line); }
+  h2 { font: 700 44px/1 var(--font-head); margin: 0 0 8px; }
+  .lede { color: var(--muted); margin: 0 0 26px; max-width: 62ch; }
+  h3 { font: 700 26px/1.1 var(--font-head); margin: 0 0 6px; }
+
+  .earn { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 30px; }
+  .earn .big { font: 800 56px/1 var(--font-head); color: var(--big); display: block; margin-bottom: 4px; }
+  .earn p { margin: 0; color: var(--muted); }
+  .earn strong { color: var(--ink); }
+
+  .note {
+    border-left: 4px solid var(--aura);
+    background: var(--aura-soft);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 0 0 30px;
+    max-width: 70ch;
+  }
+  .note p { margin: 0; }
+
+  /* Games: two-column rows, the game on the left, the rules on the right */
+  .game { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .game:last-of-type { border-bottom: 0; }
+  .game .how { font-family: var(--font-mono); font-size: 14px; color: var(--gold); margin-top: 6px; display: block; }
+  .game p { margin: 0 0 10px; max-width: 62ch; }
+  .game p:last-child { margin-bottom: 0; }
+  .game ul { margin: 0 0 10px; padding-left: 20px; max-width: 62ch; }
+
+  .odds-wrap { overflow-x: auto; margin: 4px 0 12px; }
+  table.odds { border-collapse: collapse; min-width: 320px; }
+  .odds th, .odds td { text-align: left; padding: 8px 22px 8px 0; border-bottom: 1px solid var(--line); }
+  .odds th { font: 600 14px/1 var(--font-body); color: var(--muted); }
+  .odds td:first-child { font: 700 22px/1 var(--font-head); }
+  .odds td:last-child { color: var(--aura); font-weight: 600; }
+
+  ol.steps { padding-left: 22px; margin: 0 0 18px; max-width: 62ch; }
+  ol.steps li { margin-bottom: 10px; }
+
+  /* Command finder */
+  .finder { position: relative; margin: 0 0 18px; max-width: 520px; }
+  .finder input {
+    width: 100%;
+    font: 500 17px/1 var(--font-body);
+    color: var(--ink);
+    background: var(--panel);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .finder input::placeholder { color: var(--muted); }
+  .cmds { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .cmds li { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .cmds .cmd { color: var(--gold); word-break: break-word; }
+  .cmds .what { color: var(--ink); }
+  .cmds .cat { color: var(--muted); font-size: 14px; margin-left: 6px; }
+  .empty { color: var(--muted); padding: 14px 0; }
+
+  details { border-bottom: 1px solid var(--line); padding: 14px 0; max-width: 70ch; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 10px 0 0; color: var(--muted); }
+
+  footer { padding: 40px 0 50px; color: var(--muted); font-size: 15px; border-top: 1.5px solid var(--line); margin-top: 40px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 34px; gap: 28px; }
+    .earn { grid-template-columns: 1fr; gap: 18px; }
+    .game { grid-template-columns: 1fr; gap: 8px; }
+    .cmds li { grid-template-columns: 1fr; gap: 2px; }
+    h2 { font-size: 38px; }
+  }
+
+  /* Mod page extras */
+  .rules { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+  .rules li { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .rules li:last-child { border-bottom: 0; }
+  .rules h3 { margin: 0; }
+  .rules p { margin: 0; max-width: 62ch; }
+  ol.ladder { margin: 0 0 18px; padding-left: 22px; max-width: 62ch; }
+  ol.ladder li { margin-bottom: 8px; }
+  .zero { border-left-color: var(--loss); }
+  .tools-wrap { overflow-x: auto; }
+  table.tools { border-collapse: collapse; width: 100%; min-width: 560px; }
+  .tools th, .tools td { text-align: left; vertical-align: top; padding: 12px 18px 12px 0; border-bottom: 1px solid var(--line); }
+  .tools th { font: 600 14px/1 var(--font-body); color: var(--muted); }
+  .tools td:first-child { font-family: var(--font-mono); font-size: 14px; color: var(--gold); white-space: nowrap; }
+  .tools td:last-child { color: var(--muted); }
+  .moments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+  .moments div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .moments p { margin: 4px 0 0; color: var(--muted); }
+  .terry { color: var(--loss); font-weight: 600; }
+  @media (max-width: 760px) {
+    .rules li { grid-template-columns: 1fr; gap: 6px; }
+    .moments { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <div>
+      <h1>Mod guide</h1>
+      <p>While Terry's in a fight, you're the one keeping chat welcoming, fair and fun. Here's what's expected, and how to run the Epic Aura tools well.</p>
+    </div>
+    <div class="chat" aria-label="Example chat">
+      <p><span class="who v2">NewViewer:</span>first time here, what's epic aura?</p>
+      <p><span class="who v1">Mod:</span>welcome in! it's our chat currency, you earn it just by hanging out. type <span class="cmd">!aurahelp</span> for the commands</p>
+      <p><span class="who v2">NewViewer:</span><span class="cmd">!fight wraith 1v1 50</span></p>
+      <p><span class="who bot">BakaOwnage:</span>@NewViewer W Wraith. That 1v1 never stood a chance. <span class="up">(+50, now 50)</span></p>
+      <p><span class="who v2">NewViewer:</span>ok I'm staying</p>
+    </div>
+  </header>
+
+  <section id="expectations">
+    <h2>The minimum</h2>
+    <p class="lede">These are the basics every mod sticks to, every stream, on every platform.</p>
+    <ul class="rules">
+      <li><h3>Welcome people</h3><p>Say hi to new and returning chatters by name, especially first-timers. Answer questions, and point them to <code>!aurahelp</code> when they ask about the games.</p></li>
+      <li><h3>Keep it positive</h3><p>Banter and roasting the gameplay is fine. Picking on a viewer isn't. If a disagreement starts, calm it down or take it to whispers, never argue it out in chat.</p></li>
+      <li><h3>Be fair and consistent</h3><p>Same behaviour, same response, whoever it is. Friends, regulars and VIPs get no special treatment, and nobody gets punished for disagreeing with you.</p></li>
+      <li><h3>Never use tools for yourself</h3><p>No adding Aura to yourself or your friends, no rigging giveaways, no drops timed for your mates. If it would look dodgy on a clip, don't do it.</p></li>
+      <li><h3>Cover every platform</h3><p>Chat comes in from Twitch, YouTube and Kick. Keep an eye on all the ones you mod, so nobody on the smaller platforms gets ignored.</p></li>
+      <li><h3>Don't backseat</h3><p>No telling Terry how to play unless he asks. Remove messages that call out his position for stream snipers, and anything sharing someone's personal info.</p></li>
+      <li><h3>Represent Epicness</h3><p>When Terry's busy, you're the face of the community. Be the kind of chat people want to come back to.</p></li>
+      <li><h3>Flag it, don't sit on it</h3><p>If you're unsure, ask in mod chat or message Terry after stream. Anything serious, tell him straight away, even mid-stream.</p></li>
+    </ul>
+  </section>
+
+  <section id="moderation">
+    <h2>Handling problems</h2>
+    <p class="lede">Start light and step up. Most people just need a nudge.</p>
+    <ol class="ladder">
+      <li>Friendly reminder in chat, or a whisper.</li>
+      <li>Delete the message and give a short timeout (1 to 10 minutes).</li>
+      <li>Longer timeout if they keep going.</li>
+      <li>Ban, then let Terry know why after stream.</li>
+    </ol>
+    <div class="note zero">
+      <p>Ban straight away, no warning, for hate speech, threats, sharing anyone's personal info, sexual content, bots and scam links. Then tell Terry.</p>
+    </div>
+  </section>
+
+  <section id="tools">
+    <h2>Epic Aura tools</h2>
+    <p class="lede">Mods have admin access to Epic Aura. These commands work on every platform. Use them to make chat fun, not to show off.</p>
+    <div class="tools-wrap">
+      <table class="tools">
+        <thead><tr><th>Command</th><th>What it does</th><th>When to use it</th></tr></thead>
+        <tbody>
+          <tr><td>!drop 250</td><td>First person to type !claim gets it</td><td>Quiet moments to wake chat up. Around 1 or 2 an hour, 100 to 500 each.</td></tr>
+          <tr><td>!rain 200</td><td>Everyone present gets the same amount</td><td>Raids, big wins and milestones. Check with Terry before anything over 1,000.</td></tr>
+          <tr><td>!aurainfo</td><td>Posts the welcome message everywhere</td><td>After a raid or when lots of new people turn up.</td></tr>
+          <tr><td>!predict open Will we win? | Win | Top 5 | Neither</td><td>Opens a prediction</td><td>Start of an Apex match. <code>!predict lock</code> once he's landed, <code>!predict result 2</code> at the end.</td></tr>
+          <tr><td>!predict cancel</td><td>Cancels and refunds every bet</td><td>Match crashed, wrong options, or no clear result.</td></tr>
+          <tr><td>!giveaway</td><td>Shows the current giveaway</td><td>Any time someone asks how to enter.</td></tr>
+          <tr><td>!giveaway start / draw</td><td>Runs giveaways</td><td><span class="terry">Terry only.</span> The bot won't let mods run these for now.</td></tr>
+          <tr><td>!goal start</td><td>Starts a community goal</td><td><span class="terry">Terry only.</span> Mods can still use <code>!goal</code> to show progress.</td></tr>
+          <tr><td>!ring cancel</td><td>Cancels a battle royale and refunds</td><td>Only if something's gone wrong with it.</td></tr>
+          <tr><td>!addaura name 500</td><td>Gives someone Aura</td><td>Fixing mistakes and refunds only. Say what you did and why in mod chat.</td></tr>
+          <tr><td>!takeaura name 500</td><td>Removes Aura</td><td>Undoing a mistake or someone exploiting a bug. Say why in mod chat.</td></tr>
+          <tr><td>!aurareset</td><td>Wipes balances or stats</td><td><span class="terry">Terry only.</span> The bot blocks it for mods.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="giveaways">
+    <h2>During giveaways</h2>
+    <p class="lede">Terry runs the giveaway itself. Your job is keeping chat clear, fair and safe while it's on.</p>
+    <ul class="rules">
+      <li><h3>Explain how to enter</h3><p>Lots of people will ask. Reply with <code>!enter</code> to join, or <code>!giveaway</code> to see the prize and ticket price. On paid giveaways, remind them <code>!enter 3</code> or <code>!enter max</code> buys more tickets.</p></li>
+      <li><h3>Let the entries flow</h3><p>A wall of <code>!enter</code> is expected, so don't time people out for it. Do clear out spam that has nothing to do with the giveaway so the important messages stay readable.</p></li>
+      <li><h3>Watch for scams</h3><p>Fake "you won, DM me" messages and impersonator accounts pop up during giveaways. Ban them on sight and remind chat that winners are only ever announced by BakaOwnage in chat and contacted by Terry himself.</p></li>
+      <li><h3>Stay neutral</h3><p>Never promise anyone a win, hint at who's ahead, or pressure people to spend Aura. The draw is random, and that's the point.</p></li>
+      <li><h3>Entering yourself</h3><p>You can enter like anyone else unless Terry says otherwise. Never ask him for extra entries or a reroll.</p></li>
+      <li><h3>Handle sore losers</h3><p>Congratulate the winner, keep it light with anyone salty, and remind them there'll be more. If someone keeps complaining, it's a normal timeout like anything else.</p></li>
+      <li><h3>If the winner's gone</h3><p>Let Terry decide whether to wait or reroll. If they turn up late, point them to Terry, don't promise anything.</p></li>
+    </ul>
+  </section>
+
+  <section id="moments">
+    <h2>Good moments to jump in</h2>
+    <p class="lede">The best mods read the room. A few easy wins:</p>
+    <div class="moments">
+      <div><h3>A raid lands</h3><p>Welcome the raiders, post <code>!aurainfo</code>, and drop a small <code>!rain</code> so they start with something.</p></div>
+      <div><h3>Chat goes quiet</h3><p>Fire a <code>!drop</code> or start a <code>!ring</code> and get people involved.</p></div>
+      <div><h3>New match starts</h3><p>Open a prediction so chat has something riding on it.</p></div>
+      <div><h3>Terry gets a big win</h3><p>Hype it up, and a <code>!rain</code> to celebrate goes a long way.</p></div>
+      <div><h3>Someone's lost everything</h3><p>Point them to how they earn it back. Don't bail people out with <code>!addaura</code>.</p></div>
+      <div><h3>Someone new asks a question</h3><p>Answer it yourself first, then point them to <code>!aurahelp</code>.</p></div>
+    </div>
+  </section>
+
+  <section id="broken">
+    <h2>When something breaks</h2>
+    <ol class="steps">
+      <li>Cancel whatever's stuck so people get refunded: <code>!predict cancel</code> or <code>!ring cancel</code>. If a giveaway is stuck, tell Terry so he can cancel it.</li>
+      <li>If someone lost Aura to a bug, put it back with <code>!addaura</code>.</li>
+      <li>Note what happened and roughly when in mod chat, so Terry can check the logs after stream.</li>
+    </ol>
+  </section>
+
+  <footer>
+    Thanks for looking after the Epicness community. Questions? Ask Terry.
+  </footer>
+</main>
+</body>
+</html>
