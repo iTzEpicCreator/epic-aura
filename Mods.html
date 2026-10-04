@@ -222,6 +222,39 @@
     .rules li { grid-template-columns: 1fr; gap: 6px; }
     .moments { grid-template-columns: 1fr; }
   }
+  .partnav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px 0;
+    margin-bottom: 8px;
+    background: var(--bg);
+    border-bottom: 1.5px solid var(--line);
+  }
+  .partnav a {
+    flex: none;
+    font: 600 15px/1 var(--font-body);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+  }
+  .partnav a:hover { border-color: var(--aura); color: var(--aura); }
+  .part { padding: 64px 0 26px; scroll-margin-top: 70px; }
+  .part-title { font: 800 clamp(48px, 8vw, 76px)/0.95 var(--font-head); margin: 0 0 12px; color: var(--aura); }
+  .part p { margin: 0; color: var(--muted); max-width: 60ch; font-size: 18px; }
+  section { scroll-margin-top: 70px; }
+  .ref { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .reflist { list-style: none; margin: 0 0 8px; padding: 0; }
+  .reflist li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .reflist code { white-space: normal; }
+  .ref .gap { margin-top: 24px; }
+  .ref p { margin: 0; color: var(--muted); }
+  @media (max-width: 760px) { .ref { grid-template-columns: 1fr; gap: 18px; } }
 </style>
 </head>
 <body>
@@ -240,6 +273,17 @@
       <p><span class="who v2">NewViewer:</span>ok I'm staying</p>
     </div>
   </header>
+
+  <nav class="partnav" aria-label="Page sections">
+    <a href="#duties">Expectations and duties</a>
+    <a href="#aura">Epic Aura point system</a>
+    <a href="#reference">Quick reference</a>
+  </nav>
+
+  <div class="part" id="duties">
+    <h2 class="part-title">Expectations and duties</h2>
+    <p>How we look after chat: the basics every mod sticks to, how to deal with problems, and what to do while a giveaway is running.</p>
+  </div>
 
   <section id="expectations">
     <h2>The minimum</h2>
@@ -270,6 +314,36 @@
     </div>
   </section>
 
+  <section id="giveaways">
+    <h2>During giveaways</h2>
+    <p class="lede">Terry runs the giveaway itself. Your job is keeping chat clear, fair and safe while it's on.</p>
+    <ul class="rules">
+      <li><h3>Explain how to enter</h3><p>Lots of people will ask. Reply with <code>!enter</code> to join, or <code>!giveaway</code> to see the prize and ticket price. On paid giveaways, remind them <code>!enter 3</code> or <code>!enter max</code> buys more tickets.</p></li>
+      <li><h3>Let the entries flow</h3><p>A wall of <code>!enter</code> is expected, so don't time people out for it. Do clear out spam that has nothing to do with the giveaway so the important messages stay readable.</p></li>
+      <li><h3>Watch for scams</h3><p>Fake "you won, DM me" messages and impersonator accounts pop up during giveaways. Ban them on sight and remind chat that winners are only ever announced by BakaOwnage in chat and contacted by Terry himself.</p></li>
+      <li><h3>Stay neutral</h3><p>Never promise anyone a win, hint at who's ahead, or pressure people to spend Aura. The draw is random, and that's the point.</p></li>
+      <li><h3>Entering yourself</h3><p>You can enter like anyone else unless Terry says otherwise. Never ask him for extra entries or a reroll.</p></li>
+      <li><h3>Handle sore losers</h3><p>Congratulate the winner, keep it light with anyone salty, and remind them there'll be more. If someone keeps complaining, it's a normal timeout like anything else.</p></li>
+      <li><h3>If the winner's gone</h3><p>Let Terry decide whether to wait or reroll. If they turn up late, point them to Terry, don't promise anything.</p></li>
+    </ul>
+  </section>
+
+  <div class="part" id="aura">
+    <h2 class="part-title">Epic Aura point system</h2>
+    <p>Our cross-platform chat currency. How it works, the mod tools you have, and how to use them to keep chat lively.</p>
+  </div>
+
+  <section id="howitworks">
+    <h2>How it works</h2>
+    <p class="lede">The short version, so you can explain it to viewers.</p>
+    <ul class="rules">
+      <li><h3>Earning</h3><p>Viewers earn 300 Epic Aura an hour just by watching, 1.5x for subs and members. On YouTube and Kick they need to chat now and then to be counted.</p></li>
+      <li><h3>Spending</h3><p>Games (<code>!fight</code>, <code>!ring</code>, <code>!duel</code>, <code>!heist</code>, <code>!gamble</code>), giveaway tickets, prediction bets and community goals.</p></li>
+      <li><h3>One wallet</h3><p>Viewers on more than one platform can <code>!link</code> their accounts so it all stacks together.</p></li>
+      <li><h3>Help for viewers</h3><p><code>!aurahelp</code> lists the commands in chat and links to the full viewer guide.</p></li>
+    </ul>
+  </section>
+
   <section id="tools">
     <h2>Epic Aura tools</h2>
     <p class="lede">Mods have admin access to Epic Aura. These commands work on every platform. Use them to make chat fun, not to show off.</p>
@@ -294,20 +368,6 @@
     </div>
   </section>
 
-  <section id="giveaways">
-    <h2>During giveaways</h2>
-    <p class="lede">Terry runs the giveaway itself. Your job is keeping chat clear, fair and safe while it's on.</p>
-    <ul class="rules">
-      <li><h3>Explain how to enter</h3><p>Lots of people will ask. Reply with <code>!enter</code> to join, or <code>!giveaway</code> to see the prize and ticket price. On paid giveaways, remind them <code>!enter 3</code> or <code>!enter max</code> buys more tickets.</p></li>
-      <li><h3>Let the entries flow</h3><p>A wall of <code>!enter</code> is expected, so don't time people out for it. Do clear out spam that has nothing to do with the giveaway so the important messages stay readable.</p></li>
-      <li><h3>Watch for scams</h3><p>Fake "you won, DM me" messages and impersonator accounts pop up during giveaways. Ban them on sight and remind chat that winners are only ever announced by BakaOwnage in chat and contacted by Terry himself.</p></li>
-      <li><h3>Stay neutral</h3><p>Never promise anyone a win, hint at who's ahead, or pressure people to spend Aura. The draw is random, and that's the point.</p></li>
-      <li><h3>Entering yourself</h3><p>You can enter like anyone else unless Terry says otherwise. Never ask him for extra entries or a reroll.</p></li>
-      <li><h3>Handle sore losers</h3><p>Congratulate the winner, keep it light with anyone salty, and remind them there'll be more. If someone keeps complaining, it's a normal timeout like anything else.</p></li>
-      <li><h3>If the winner's gone</h3><p>Let Terry decide whether to wait or reroll. If they turn up late, point them to Terry, don't promise anything.</p></li>
-    </ul>
-  </section>
-
   <section id="moments">
     <h2>Good moments to jump in</h2>
     <p class="lede">The best mods read the room. A few easy wins:</p>
@@ -328,6 +388,39 @@
       <li>If someone lost Aura to a bug, put it back with <code>!addaura</code>.</li>
       <li>Note what happened and roughly when in mod chat, so Terry can check the logs after stream.</li>
     </ol>
+  </section>
+
+  <div class="part" id="reference">
+    <h2 class="part-title">Quick reference</h2>
+    <p>The commands you'll use most, at a glance.</p>
+  </div>
+
+  <section id="cheatsheet">
+    <div class="ref">
+      <div>
+        <h3>You can use</h3>
+        <ul class="reflist">
+          <li><code>!drop &lt;amount&gt;</code></li>
+          <li><code>!rain &lt;amount&gt;</code></li>
+          <li><code>!aurainfo</code></li>
+          <li><code>!predict open Q | A | B</code>, <code>lock</code>, <code>result &lt;n&gt;</code>, <code>cancel</code></li>
+          <li><code>!ring cancel</code></li>
+          <li><code>!addaura &lt;name&gt; &lt;amount&gt;</code></li>
+          <li><code>!takeaura &lt;name&gt; &lt;amount&gt;</code></li>
+          <li><code>!giveaway</code>, <code>!goal</code> (status)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Terry only</h3>
+        <ul class="reflist">
+          <li><code>!giveaway start / draw / reroll / cancel</code></li>
+          <li><code>!goal start / cancel / end</code></li>
+          <li><code>!aurareset</code></li>
+        </ul>
+        <h3 class="gap">Instant ban</h3>
+        <p>Hate speech, threats, personal info, sexual content, bots, scam links and fake "you won" accounts.</p>
+      </div>
+    </div>
   </section>
 
   <footer>
