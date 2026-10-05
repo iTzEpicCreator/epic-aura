@@ -282,6 +282,8 @@
     <a href="#aura">Epic Aura</a>
     <a href="#apex">Apex stats</a>
     <a href="#songs">Song requests</a>
+    <a href="#chat">Chat commands</a>
+    <a href="#socials">Socials</a>
     <a href="#points">Channel points</a>
     <a href="#all">All commands</a>
   </nav>
@@ -309,6 +311,7 @@
     <ul class="rules">
       <li><h3>Any legend</h3><p>Type the legend's name, like <code>!wraith</code>, <code>!pathfinder</code> or <code>!bangalore</code>, to see Terry's kills, damage and wins with them, plus his banner frame and pose. It shows on stream for about 10 seconds.</p></li>
       <li><h3>Current legend</h3><p><code>!main</code> shows the legend Terry is playing right now.</p></li>
+      <li><h3>Hidden Easter egg</h3><p>There's a secret command hiding in the Apex stats. Can you find it? Real Apex fans might have a head start.</p></li>
     </ul>
   </section>
 
@@ -328,6 +331,37 @@
     </ul>
   </section>
 
+  <div class="part" id="chat">
+    <h2 class="part-title">Chat commands</h2>
+    <p>Handy info and a bit of fun.</p>
+  </div>
+
+  <section>
+    <ul class="rules">
+      <li><h3>Stream info</h3><p><code>!uptime</code> how long Terry's been live, <code>!time</code> Terry's local time, <code>!sens</code> his in-game sensitivity and mouse DPI.</p></li>
+      <li><h3>About you</h3><p><code>!followage</code> how long you've followed, <code>!accountage</code> how old your account is.</p></li>
+      <li><h3>Clip it</h3><p><code>!clip</code> clips the last bit of stream. Saw something epic? Clip it.</p></li>
+      <li><h3>Just chilling</h3><p><code>!lurk</code> lets Terry know you're watching, even if you're quiet.</p></li>
+      <li><h3>Fun</h3><p><code>!8ball</code> ask it anything, <code>!fortune</code> get your fortune, <code>!russianroulette</code> if you're feeling brave, and <code>!slap @user</code> to slap someone with love (it keeps count).</p></li>
+      <li><h3>Raiding out</h3><p><code>!raid1</code> gives you the raid message to post when we raid another streamer.</p></li>
+      <li><h3>Death counter</h3><p>Terry's deaths are tracked on stream. Mods keep the count, so no adding extras for fun.</p></li>
+    </ul>
+  </section>
+
+  <div class="part" id="socials">
+    <h2 class="part-title">Socials</h2>
+    <p>Find Terry everywhere else.</p>
+  </div>
+
+  <section>
+    <ul class="rules">
+      <li><h3>Everything in one place</h3><p><code>!socials</code> links Terry's Linktree with all his links.</p></li>
+      <li><h3>Join the community</h3><p><code>!discord</code> for the Epicness Discord.</p></li>
+      <li><h3>Follow along</h3><p><code>!yt</code> YouTube, <code>!tt</code> TikTok, <code>!x</code> X (Twitter).</p></li>
+      <li><h3>Play together</h3><p><code>!cod</code> Terry's Call of Duty name.</p></li>
+    </ul>
+  </section>
+
   <div class="part" id="points">
     <h2 class="part-title">Channel points</h2>
     <p>Twitch only. Spend your Epic Coin Points from the channel points menu under the Twitch chat box.</p>
@@ -335,7 +369,7 @@
 
   <section>
     <ul class="rules">
-      <li><h3>Voice changers</h3><p>Change Terry's voice for a bit. Dark Angel, Baby, Fart Time and more.</p></li>
+      <li><h3>Voice changers</h3><p>Change Terry's voice for a bit. Dark Angel, Chipmunk, Fart Time and more.</p></li>
       <li><h3>Sounds and animations</h3><p>Pop a sound effect or animation on screen.</p></li>
       <li><h3>Light colours</h3><p>Type a colour and Terry's room lights change to match.</p></li>
       <li><h3>Make Terry do it</h3><p>Hydrate, posture checks, choose his character, change outfit, mask up and more.</p></li>
@@ -351,7 +385,7 @@
   <section id="commands">
     <div class="finder">
       <label for="q" style="position:absolute;left:-9999px">Search commands</label>
-      <input id="q" type="search" placeholder="Try song, queue, stats or fight" autocomplete="off">
+      <input id="q" type="search" placeholder="Try song, discord, slap or fight" autocomplete="off">
     </div>
     <ul class="cmds" id="cmds"></ul>
     <p class="empty" id="empty" hidden>No command matches that. Try a shorter word.</p>
@@ -391,7 +425,25 @@
     ["!sr <YouTube link>", "Request a song (Twitch: subs, VIPs and mods. YouTube and Kick: everyone)", "song requests"],
     ["!queue", "What's playing and up next", "song requests"],
     ["!remove <number>", "Remove your own request, number from !queue", "song requests"],
-    ["!src", "How song requests work, posted in chat", "song requests"]
+    ["!src", "How song requests work, posted in chat", "song requests"],
+    ["!uptime", "How long Terry's been live", "chat info"],
+    ["!time", "Terry's local time", "chat info"],
+    ["!sens", "Terry's in-game sensitivity and mouse DPI", "chat info"],
+    ["!followage", "How long you've followed", "chat info"],
+    ["!accountage", "How old your account is", "chat info"],
+    ["!clip", "Clip the last bit of stream", "chat info"],
+    ["!lurk", "Let Terry know you're lurking", "chat fun"],
+    ["!8ball <question>", "Ask the magic 8 ball", "chat fun"],
+    ["!fortune", "Get your fortune", "chat fun"],
+    ["!russianroulette", "If you're feeling brave", "chat fun"],
+    ["!slap @user", "Slap someone with love, it keeps count", "chat fun"],
+    ["!raid1", "The raid message to post when we raid out", "chat info"],
+    ["!socials", "Terry's Linktree, all links in one place", "socials"],
+    ["!discord", "Join the Epicness Discord", "socials"],
+    ["!yt", "Terry's YouTube", "socials"],
+    ["!tt", "Terry's TikTok", "socials"],
+    ["!x", "Terry's X (Twitter)", "socials"],
+    ["!cod", "Terry's Call of Duty name", "socials"]
   ];
 
   const list = document.getElementById("cmds");
