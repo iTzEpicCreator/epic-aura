@@ -319,8 +319,10 @@
 
   <section>
     <ul class="rules">
-      <li><h3>Subs, VIPs and mods</h3><p>Type <code>!sr</code> followed by a YouTube link, e.g. <code>!sr https://www.youtube.com/watch?v=...</code></p></li>
-      <li><h3>Everyone else on Twitch</h3><p>Use the <strong>Song Request</strong> channel points redeem and paste the YouTube link in the box.</p></li>
+      <li><h3>On Twitch</h3><p>Subs, VIPs and mods type <code>!sr</code> followed by a YouTube link, e.g. <code>!sr https://www.youtube.com/watch?v=...</code>. Everyone else uses the <strong>Song Request</strong> channel points redeem and pastes the link in the box.</p></li>
+      <li><h3>On YouTube and Kick</h3><p>Everyone can use <code>!sr</code> with a YouTube link.</p></li>
+      <li><h3>Length limit</h3><p>Up to 6 minutes per song.</p></li>
+      <li><h3>See and manage the queue</h3><p><code>!queue</code> shows what's playing and up next. <code>!remove &lt;number&gt;</code> takes out your own request, using its number from <code>!queue</code>. <code>!src</code> posts this how-to in chat.</p></li>
       <li><h3>Head bangers welcome</h3><p>Swearing is fine and hardstyle and hardcore are very much encouraged. What's not okay is anything hateful or inappropriate, including tracks that lean heavily on racial slurs.</p></li>
       <li><h3>What happens if it's not okay</h3><p>Anything we don't like gets removed. If it's clear it was requested to be hateful, that's a warning or a ban.</p></li>
     </ul>
@@ -349,7 +351,7 @@
   <section id="commands">
     <div class="finder">
       <label for="q" style="position:absolute;left:-9999px">Search commands</label>
-      <input id="q" type="search" placeholder="Try song, stats or fight" autocomplete="off">
+      <input id="q" type="search" placeholder="Try song, queue, stats or fight" autocomplete="off">
     </div>
     <ul class="cmds" id="cmds"></ul>
     <p class="empty" id="empty" hidden>No command matches that. Try a shorter word.</p>
@@ -386,7 +388,10 @@
     ["!goal / !contribute <amount>", "See and add to the community goal", "events"],
     ["!<legend>", "Terry's stats for that legend, e.g. !wraith", "apex stats"],
     ["!main", "Stats for the legend Terry is playing right now", "apex stats"],
-    ["!sr <YouTube link>", "Request a song (subs, VIPs and mods)", "song requests"]
+    ["!sr <YouTube link>", "Request a song (Twitch: subs, VIPs and mods. YouTube and Kick: everyone)", "song requests"],
+    ["!queue", "What's playing and up next", "song requests"],
+    ["!remove <number>", "Remove your own request, number from !queue", "song requests"],
+    ["!src", "How song requests work, posted in chat", "song requests"]
   ];
 
   const list = document.getElementById("cmds");
