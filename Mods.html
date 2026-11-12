@@ -255,6 +255,8 @@
   .ref .gap { margin-top: 24px; }
   .ref p { margin: 0; color: var(--muted); }
   @media (max-width: 760px) { .ref { grid-template-columns: 1fr; gap: 18px; } }
+  .gap-top { margin-top: 34px; }
+  .tools td:nth-child(2) { white-space: nowrap; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -319,7 +321,7 @@
     <h2>During giveaways</h2>
     <p class="lede">Terry runs the giveaway itself. Your job is keeping chat clear, fair and safe while it's on.</p>
     <ul class="rules">
-      <li><h3>Explain how to enter</h3><p>Lots of people will ask. Reply with <code>!enter</code> to join, or <code>!giveaway</code> to see the prize and ticket price. On paid giveaways, remind them <code>!enter 3</code> or <code>!enter max</code> buys more tickets.</p></li>
+      <li><h3>Explain how to enter</h3><p>Lots of people will ask. Run <code>!giveawayhelp</code>, it explains how to enter the current giveaway on every platform at once. Or reply with <code>!enter</code> to join and <code>!giveaway</code> for the prize and ticket price. On paid giveaways, remind them <code>!enter 3</code> or <code>!enter max</code> buys more tickets.</p></li>
       <li><h3>Let the entries flow</h3><p>A wall of <code>!enter</code> is expected, so don't time people out for it. Do clear out spam that has nothing to do with the giveaway so the important messages stay readable.</p></li>
       <li><h3>Watch for scams</h3><p>Fake "you won, DM me" messages and impersonator accounts pop up during giveaways. Ban them on sight and remind chat that winners are only ever announced by BakaOwnage in chat and contacted by Terry himself.</p></li>
       <li><h3>Stay neutral</h3><p>Never promise anyone a win, hint at who's ahead, or pressure people to spend Aura. The draw is random, and that's the point.</p></li>
@@ -327,6 +329,30 @@
       <li><h3>Handle sore losers</h3><p>Congratulate the winner, keep it light with anyone salty, and remind them there'll be more. If someone keeps complaining, it's a normal timeout like anything else.</p></li>
       <li><h3>If the winner's gone</h3><p>Let Terry decide whether to wait or reroll. If they turn up late, point them to Terry, don't promise anything.</p></li>
     </ul>
+  
+    <h3 class="gap-top">Giveaway commands</h3>
+    <p class="lede">Every giveaway command, who can use it, and what it does. Terry runs the giveaway itself for now, but it helps to know the whole flow so you can explain it.</p>
+    <div class="tools-wrap">
+      <table class="tools">
+        <thead><tr><th>Command</th><th>Who</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>!giveaway start 100 5 Prize</td><td><span class="terry">Terry</span></td><td>Opens a giveaway. First number is the ticket price in Epic Aura, second is the most tickets one person can buy, then the prize. A price of <code>0</code> makes it free with one entry each, e.g. <code>!giveaway start 0 1 Apex Coins</code>. Announced on every platform.</td></tr>
+          <tr><td>!giveaway close</td><td><span class="terry">Terry</span></td><td>Stops new entries without drawing yet. Optional, draw does this anyway.</td></tr>
+          <tr><td>!giveaway draw</td><td><span class="terry">Terry</span></td><td>Closes entries and picks a random winner. More tickets means better odds. Announces the winner and which platforms they're on.</td></tr>
+          <tr><td>!giveaway reroll</td><td><span class="terry">Terry</span></td><td>Picks a new winner, skipping anyone who already won. Used if the winner doesn't turn up.</td></tr>
+          <tr><td>!giveaway cancel</td><td><span class="terry">Terry</span></td><td>Cancels it. Before the draw, everyone gets their ticket Aura back.</td></tr>
+          <tr><td>!giveaway end</td><td><span class="terry">Terry</span></td><td>Clears a finished giveaway so the next one can start.</td></tr>
+          <tr><td>!giveawayhelp</td><td>Mods and Terry</td><td>Explains how to enter the current giveaway, on every platform at once. Run it when a giveaway opens or people keep asking. Viewers can use it too, but only on their own platform, with a cooldown.</td></tr>
+          <tr><td>!giveaway</td><td>Everyone</td><td>Shows the prize, ticket price and how many entries there are so far.</td></tr>
+          <tr><td>!enter</td><td>Everyone</td><td>Buys 1 ticket (or joins, if it's free).</td></tr>
+          <tr><td>!enter 3</td><td>Everyone</td><td>Buys 3 tickets, up to the limit. If they can't afford them all, they get as many as they can afford.</td></tr>
+          <tr><td>!enter max</td><td>Everyone</td><td>Buys as many tickets as the limit allows.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p>Giveaways are saved, so entries survive a Streamer.bot restart. Viewers can't link accounts while they hold tickets, so if someone asks why <code>!link</code> won't work, that's why.</p>
+    </div>
   </section>
 
   <div class="part" id="aura">
@@ -358,7 +384,8 @@
           <tr><td>!aurainfo</td><td>Posts the welcome message everywhere</td><td>After a raid or when lots of new people turn up.</td></tr>
           <tr><td>!predict open Will we win? | Win | Top 5 | Neither</td><td>Opens a prediction</td><td>Start of an Apex match. <code>!predict lock</code> once he's landed, <code>!predict result 2</code> at the end.</td></tr>
           <tr><td>!predict cancel</td><td>Cancels and refunds every bet</td><td>Match crashed, wrong options, or no clear result.</td></tr>
-          <tr><td>!giveaway</td><td>Shows the current giveaway</td><td>Any time someone asks how to enter.</td></tr>
+          <tr><td>!giveaway</td><td>Shows the current giveaway</td><td>Any time someone asks what's up for grabs.</td></tr>
+          <tr><td>!giveawayhelp</td><td>Explains how to enter, on every platform</td><td>When a giveaway opens, or people keep asking how to join.</td></tr>
           <tr><td>!giveaway start / draw</td><td>Runs giveaways</td><td><span class="terry">Terry only.</span> The bot won't let mods run these for now.</td></tr>
           <tr><td>!goal start</td><td>Starts a community goal</td><td><span class="terry">Terry only.</span> Mods can still use <code>!goal</code> to show progress.</td></tr>
           <tr><td>!ring cancel</td><td>Cancels a battle royale and refunds</td><td>Only if something's gone wrong with it.</td></tr>
@@ -471,7 +498,7 @@
           <li><code>!ring cancel</code></li>
           <li><code>!addaura &lt;name&gt; &lt;amount&gt;</code></li>
           <li><code>!takeaura &lt;name&gt; &lt;amount&gt;</code></li>
-          <li><code>!giveaway</code>, <code>!goal</code> (status)</li>
+          <li><code>!giveaway</code>, <code>!goal</code> (status), <code>!giveawayhelp</code></li>
           <li><code>!so &lt;name&gt;</code> (mods only), <code>!main</code>, <code>!mainstop</code></li>
           <li><code>!skip</code>, <code>!pause</code>, <code>!resume</code>, <code>!clearsongs</code></li>
           <li><code>!died</code>, <code>!deathreset</code></li>
